@@ -31,8 +31,8 @@ public class RestFamiliesController {
   private IFamiliesService serv;
 
   /**
-   * GET - List of the Families.
-   * @return list Families.
+   * GET - Lista de Familias.
+   * @return lista Families.
    */
   @ApiOperation(value = "Return list of family")
   @GetMapping
@@ -43,9 +43,9 @@ public class RestFamiliesController {
   }
 
   /**
-   * List the members of the family by id.
+   * Lista de miembros de la familia por Id.
    * @param family_id
-   * @return a list of the members of that family.
+   * @return a lista de miembros de la familia.
    */
   @ApiOperation(value = "Return list of family by id members")
   @GetMapping(value = "/{family_id}/members")
@@ -56,10 +56,10 @@ public class RestFamiliesController {
   }
 
   /**
-   * this function is responsible for making a record of a 
-   * family.
+   * Esta funcion es reposnsable de realizar un registro en
+   * familia.
    * @param fam 
-   * @return object.
+   * @return objeto.
    */
   @ApiOperation(value = "Create new family")
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, 
@@ -70,24 +70,28 @@ public class RestFamiliesController {
   }
 
   /**
-   * this function is responsible for updating an existing record.
+   * Esta funcion es responsable de actualizar un registro.
    * @param fam the Families.
-   * @return modified object.
+   * @return objeto modificado.
    */
   @ApiOperation(value = "Update family")
   @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public void modificar(@RequestBody Families fam) {
 
     serv.update(fam);
+    new ResponseEntity<Families>(HttpStatus.CREATED);
   }
 
   /**
-   * this function is responsible for deleting an existing record.
+   * Esta funcion es responsable de eliminar un registro.
    * @param id
    */
   @ApiOperation(value = "Delete family by id")
   @DeleteMapping("/{id}")
   public void eliminar(@PathVariable("id") Integer id) {
+	  
     serv.delete(id);
+    new ResponseEntity<Families>(HttpStatus.OK);
+
   }
 }

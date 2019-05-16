@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.everis.ejercicio1.models.Families;
 import com.everis.ejercicio1.models.FamilyMembers;
-import com.everis.ejercicio1.models.Parents;
 import com.everis.ejercicio1.repository.IFamiliesRepo;
 import com.everis.ejercicio1.repository.IFamilyMembersRepo;
 import com.everis.ejercicio1.repository.IParentsRepo;
@@ -41,25 +40,17 @@ public class FamiliesServiceImpl implements IFamiliesService {
    */
   @Override
   public void update(Families families) {
-   // if(repo.)
+ 
+	  if(repo.findById(families.getFamilyId()).isPresent()) {
+		  repo.save(families);
+			new ResponseEntity<Families>(HttpStatus.CREATED);
+	  }
+	  else {
+			new ResponseEntity<Families>(HttpStatus.BAD_REQUEST);
+
+	  }
 	  
-	  Parents par = new Parents();
     
-    repo.findById(families.getFamilyId()).ifPresent((f) -> {
-    
-    	
-  	if(repoParents.findById(par.getParentId()).isPresent()) {
-  		 repo.save(families);
-  		new ResponseEntity<Families>(HttpStatus.CREATED);
-  	}
-  	else {
-  		new ResponseEntity<Families>(HttpStatus.BAD_REQUEST);
-  		System.out.println("Id no existe");
-  	}
-  	
-    }
-    
-        );
     
     
   
@@ -74,10 +65,9 @@ public class FamiliesServiceImpl implements IFamiliesService {
     repo.findById(id).ifPresent((f) -> {
       
       repo.deleteById(id);
+     
       
     });
-    System.out.println("Id no existe");
-    new ResponseEntity<Families>(HttpStatus.BAD_REQUEST);
   }
 
   /**

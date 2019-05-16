@@ -1,5 +1,6 @@
 package com.everis.ejercicio1.Controller;
 
+import com.everis.ejercicio1.models.Families;
 import com.everis.ejercicio1.models.FamilyMembers;
 import com.everis.ejercicio1.service.IFamilyMembersService;
 
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(value = "Family members microservice", description = "This API has a CRUD for family members")
+@Api(value = "Family members microservice", tags = "This API has a CRUD for family members")
 @RequestMapping("/api/v1/familyMembers")
 public class RestFamilyMembersController {
 
@@ -68,8 +69,10 @@ public class RestFamilyMembersController {
     if (obj.isPresent()) {
       serv.update(famMembers);
       mensaje = "Modificado con éxito!!";
+      new ResponseEntity<Families>(HttpStatus.CREATED); 
     } else {
       mensaje = "Pariente no existe";
+      new ResponseEntity<Families>(HttpStatus.BAD_REQUEST);
     }
 
     return mensaje;
@@ -82,8 +85,9 @@ public class RestFamilyMembersController {
   @ApiOperation(value = "Delete family members by id")
   @DeleteMapping("/{id}")
   public void eliminar(@PathVariable("id") Integer id) {
+	  
     serv.delete(id);
-
+    new ResponseEntity<Families>(HttpStatus.BAD_REQUEST);
   }
 
 }

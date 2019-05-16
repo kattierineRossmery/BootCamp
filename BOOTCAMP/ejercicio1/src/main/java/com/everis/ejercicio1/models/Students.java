@@ -1,5 +1,5 @@
 package com.everis.ejercicio1.models;
-
+ 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModel;

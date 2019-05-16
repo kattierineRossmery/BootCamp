@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @Api(value = "Parents microservice", tags = "This API has a CRUD for parents")
 @RequestMapping("/api/v1/parents")
@@ -42,6 +45,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class RestParentsController {
 
+	Logger log = LoggerFactory.getLogger(this.getClass());
+	
   @Autowired
   private IParentsService serv;
   
@@ -66,11 +71,18 @@ public class RestParentsController {
   @ApiOperation(value = "Create new parent")
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, 
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Parents> insertar(@Valid @RequestBody Parents per) {
-
-    Parents perCreated = serv.create(per);
-    return new ResponseEntity<Parents>(perCreated, HttpStatus.CREATED);
-
+  public Parents insertar(@Valid @RequestBody Parents per) {
+	  Parents modelPar= new Parents();
+	 try {
+		 Parents perCreated = serv.create(per);
+		    new ResponseEntity<Parents>(perCreated, HttpStatus.CREATED);
+	} catch (Exception e) {
+		// TODO: handle exception
+		log.error("Parents no creado");
+		e.printStackTrace();
+		new ResponseEntity<Parents>(HttpStatus.BAD_REQUEST);
+	}
+   return modelPar;
   }
   
   /**

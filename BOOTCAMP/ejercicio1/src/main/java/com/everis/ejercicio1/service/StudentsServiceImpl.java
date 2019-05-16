@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class IStudentsServiceImpl implements IStudentsService {
+public class StudentsServiceImpl implements IStudentsService {
 
   @Autowired
   private IStudentsRepo repo;
