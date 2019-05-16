@@ -60,7 +60,7 @@ public class SwaggerConfigurationsParents {
 
   private Predicate<String> userPaths() {
 
-    return regex("/api/v1/parents.*");
+    return regex("/api/v1/doc.*");
 
   }
 

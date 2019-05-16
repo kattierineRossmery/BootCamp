@@ -1,0 +1,44 @@
+2019-05-16 13:59:01,367 INFO org.springframework.boot.StartupInfoLogger [main] Starting Ejercicio1Application on LIM-5CG61169DF with PID 16884 (started by kvilcave in C:\Users\kvilcave\Desktop\Proyecto 16-05-2019\BootCamp\BOOTCAMP\ejercicio1)
+2019-05-16 13:59:01,469 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-16 13:59:01,470 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-16 13:59:21,698 INFO org.springframework.boot.StartupInfoLogger [main] Started Ejercicio1Application in 21.362 seconds (JVM running for 26.18)
+2019-05-16 14:27:41,769 INFO org.springframework.boot.StartupInfoLogger [main] Starting Ejercicio1Application on LIM-5CG61169DF with PID 7440 (started by kvilcave in C:\Users\kvilcave\Desktop\Proyecto 16-05-2019\BootCamp\BOOTCAMP\ejercicio1)
+2019-05-16 14:27:41,783 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-16 14:27:41,784 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-16 14:27:49,205 INFO org.springframework.boot.StartupInfoLogger [main] Started Ejercicio1Application in 8.189 seconds (JVM running for 10.768)
+2019-05-16 14:35:21,546 INFO org.springframework.boot.StartupInfoLogger [main] Starting Ejercicio1Application on LIM-5CG61169DF with PID 8392 (started by kvilcave in C:\Users\kvilcave\Desktop\Proyecto 16-05-2019\BootCamp\BOOTCAMP\ejercicio1)
+2019-05-16 14:35:21,576 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-16 14:35:21,577 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-16 14:35:27,924 INFO org.springframework.boot.StartupInfoLogger [main] Started Ejercicio1Application in 7.289 seconds (JVM running for 9.936)
+2019-05-16 14:38:39,339 INFO org.springframework.boot.StartupInfoLogger [main] Starting Ejercicio1Application on LIM-5CG61169DF with PID 3536 (started by kvilcave in C:\Users\kvilcave\Desktop\Proyecto 16-05-2019\BootCamp\BOOTCAMP\ejercicio1)
+2019-05-16 14:38:39,343 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-16 14:38:39,344 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-16 14:38:44,577 INFO org.springframework.boot.StartupInfoLogger [main] Started Ejercicio1Application in 5.679 seconds (JVM running for 6.688)
+2019-05-16 14:40:32,025 INFO org.springframework.boot.StartupInfoLogger [main] Starting Ejercicio1Application on LIM-5CG61169DF with PID 11580 (started by kvilcave in C:\Users\kvilcave\Desktop\Proyecto 16-05-2019\BootCamp\BOOTCAMP\ejercicio1)
+2019-05-16 14:40:32,029 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-16 14:40:32,030 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-16 14:40:37,566 INFO org.springframework.boot.StartupInfoLogger [main] Started Ejercicio1Application in 6.035 seconds (JVM running for 7.22)
+2019-05-16 14:44:57,167 INFO org.springframework.boot.StartupInfoLogger [main] Starting Ejercicio1Application on LIM-5CG61169DF with PID 16944 (started by kvilcave in C:\Users\kvilcave\Desktop\Proyecto 16-05-2019\BootCamp\BOOTCAMP\ejercicio1)
+2019-05-16 14:44:57,170 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-16 14:44:57,171 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-16 14:45:02,318 INFO org.springframework.boot.StartupInfoLogger [main] Started Ejercicio1Application in 5.63 seconds (JVM running for 6.566)
+2019-05-16 14:54:53,835 INFO org.springframework.boot.StartupInfoLogger [main] Starting Ejercicio1Application on LIM-5CG61169DF with PID 540 (started by kvilcave in C:\Users\kvilcave\Desktop\Proyecto 16-05-2019\BootCamp\BOOTCAMP\ejercicio1)
+2019-05-16 14:54:53,874 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-16 14:54:53,875 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-16 14:55:00,887 INFO org.springframework.boot.StartupInfoLogger [main] Started Ejercicio1Application in 7.855 seconds (JVM running for 10.786)
+2019-05-16 15:01:39,354 INFO org.springframework.boot.StartupInfoLogger [main] Starting Ejercicio1Application on LIM-5CG61169DF with PID 15404 (started by kvilcave in C:\Users\kvilcave\Desktop\Proyecto 16-05-2019\BootCamp\BOOTCAMP\ejercicio1)
+2019-05-16 15:01:39,360 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-16 15:01:39,361 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-16 15:01:44,427 INFO org.springframework.boot.StartupInfoLogger [main] Started Ejercicio1Application in 5.528 seconds (JVM running for 6.643)
+2019-05-16 15:33:07,219 INFO org.springframework.boot.StartupInfoLogger [main] Starting Ejercicio1Application on LIM-5CG61169DF with PID 5236 (started by kvilcave in C:\Users\kvilcave\Desktop\Proyecto 16-05-2019\BootCamp\BOOTCAMP\ejercicio1)
+2019-05-16 15:33:07,243 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-16 15:33:07,244 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-16 15:33:13,745 INFO org.springframework.boot.StartupInfoLogger [main] Started Ejercicio1Application in 7.294 seconds (JVM running for 9.639)
+2019-05-16 15:35:48,112 INFO com.everis.ejercicio1.Controller.RestParentsController [http-nio-8090-exec-6] listado de parientes
+2019-05-16 15:37:36,611 INFO com.everis.ejercicio1.Controller.RestFamiliesController [http-nio-8090-exec-9] lista de familias
+2019-05-16 15:37:39,491 INFO com.everis.ejercicio1.Controller.RestFamiliesController [http-nio-8090-exec-10] lista de familias
+2019-05-16 15:37:46,024 ERROR com.everis.ejercicio1.Controller.RestFamiliesController [http-nio-8090-exec-1] registro no creado
+2019-05-16 15:37:52,409 INFO com.everis.ejercicio1.Controller.RestFamiliesController [http-nio-8090-exec-2] lista de familias
+2019-05-16 15:38:01,903 ERROR com.everis.ejercicio1.Controller.RestFamiliesController [http-nio-8090-exec-4] registro no creado
+2019-05-16 15:38:08,108 INFO com.everis.ejercicio1.Controller.RestFamiliesController [http-nio-8090-exec-3] lista de familias
+2019-05-16 15:39:48,989 INFO com.everis.ejercicio1.Controller.RestStudentsController [http-nio-8090-exec-7] lista ok

@@ -86,4 +86,25 @@ public class FamilyMembersServiceImpl implements IFamilyMembersService {
     return (List<FamilyMembers>) repo.findAll();
   }
 
+@Override
+public void post(FamilyMembers familyMember, int familyId, String parentOrStudentMember, int id) {
+	
+	repoFamily.findById(familyId).ifPresent((fa) -> {
+		familyMember.setFamilies(fa);
+		if(parentOrStudentMember.equals("P")) {
+			repoParents.findById(id).ifPresent((pa)-> {
+				familyMember.setParents(pa);
+			});
+		}else if(parentOrStudentMember.equals("S")) {
+			repoStudent.findById(id).ifPresent((st)-> {
+				familyMember.setStudents(st);
+			});
+		}
+	});
+	
+repo.save(familyMember);
+	
+	
+}
+
 }

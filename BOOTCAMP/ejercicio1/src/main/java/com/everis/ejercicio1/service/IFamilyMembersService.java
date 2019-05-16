@@ -8,6 +8,9 @@ import java.util.Optional;
 public interface IFamilyMembersService {
 
   FamilyMembers create(FamilyMembers familyMembers);
+  
+  //con Param
+  public void post(FamilyMembers familyMember, int familyId, String parentOrStudentMember, int id);
 
   FamilyMembers update(FamilyMembers familyMembers);
 

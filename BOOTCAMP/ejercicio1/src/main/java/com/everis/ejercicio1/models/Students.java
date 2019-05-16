@@ -18,7 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import lombok.Data;
 
@@ -40,11 +42,11 @@ public class Students {
   @Column(name = "student_id")
   private int studentId;
 
-  @NotNull
+  @NotBlank
   @ApiModelProperty(value = "the gender", required = true)
   private String gender;
 
-  @NotNull
+  @NotBlank
   @ApiModelProperty(value = "the student first name", required = true)
   @Column(name = "first_name")
   private String firstName;
@@ -59,6 +61,7 @@ public class Students {
   private String lastName;
 
   @NotNull
+  @Past
   @Temporal(TemporalType.DATE)
   @ApiModelProperty(value = "the student's date of birth", required = true)
   @Column(name = "date_of_birth")

@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,11 +41,11 @@ public class Parents {
   @Column(name = "parent_id")
   private int parentId;
 
-  @NotNull
+  @NotNull @NotBlank
   @ApiModelProperty(value = "the gender", required = true)
   private String gender;
 
-  @NotNull
+  @NotNull @NotBlank
   @ApiModelProperty(value = "the parent's first name", required = true)
   @Column(name = "first_name")
   private String firstName;
@@ -53,6 +54,7 @@ public class Parents {
   @Column(name = "middle_name")
   private String middleName;
 
+  @NotBlank
   @ApiModelProperty(value = "the parent's last name", required = true)
   @Column(name = "last_name")
   private String lastName;

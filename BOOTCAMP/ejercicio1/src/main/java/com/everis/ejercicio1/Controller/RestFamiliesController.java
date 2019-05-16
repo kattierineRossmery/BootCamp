@@ -1,6 +1,7 @@
 package com.everis.ejercicio1.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,11 +23,17 @@ import com.everis.ejercicio1.service.IFamiliesService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
-@Api(value = "Families microservice", tags = "This API has a CRUD for families")
+@Api(value = "/api/v1/doc", tags = "This API has a CRUD for families")
 @RequestMapping("/api/v1/families")
 public class RestFamiliesController {
 
+	Logger log = LoggerFactory.getLogger(this.getClass());
+
+	
   @Autowired
   private IFamiliesService serv;
 
@@ -37,8 +44,9 @@ public class RestFamiliesController {
   @ApiOperation(value = "Return list of family")
   @GetMapping
   public ResponseEntity<List<Families>> listar() {
-
+	  log.info("lista de familias");
     return new ResponseEntity<List<Families>>(serv.list(), HttpStatus.OK);
+    
 
   }
 
@@ -50,7 +58,7 @@ public class RestFamiliesController {
   @ApiOperation(value = "Return list of family by id members")
   @GetMapping(value = "/{family_id}/members")
   public ResponseEntity<List<FamilyMembers>> listarMembersId(@PathVariable("family_id") Integer family_id) {
-
+	  log.info("lista de miembros de una familias");
     return new ResponseEntity<List<FamilyMembers>>(serv.findByFamiliesFamily_id(family_id), HttpStatus.OK);
 
   }
@@ -64,9 +72,21 @@ public class RestFamiliesController {
   @ApiOperation(value = "Create new family")
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, 
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Families> insertar(@RequestBody Families fam) {
+  public Families insertar(@RequestBody Families fam) {
+	  
+    try {
+		
+
+       new ResponseEntity<Families>(serv.create(fam), HttpStatus.CREATED);
+       log.info("creado con exito" + " a la familia" + fam.getFamilyName());
+	} catch (Exception e) {
+		log.error("registro no creado");
+		new ResponseEntity<Families>(HttpStatus.BAD_REQUEST);
+
+		e.printStackTrace();
+	}
     
-    return new ResponseEntity<Families>(serv.create(fam), HttpStatus.CREATED);
+    return fam;
   }
 
   /**
@@ -76,10 +96,24 @@ public class RestFamiliesController {
    */
   @ApiOperation(value = "Update family")
   @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public void modificar(@RequestBody Families fam) {
+  public String modificar(@RequestBody Families fam) {
 
-    serv.update(fam);
-    new ResponseEntity<Families>(HttpStatus.CREATED);
+	  String mensaje = "";
+		Optional<Families> obj = serv.listId(fam.getFamilyId());
+
+		if (obj.isPresent()) {
+			 serv.update(fam);
+			mensaje = "Modificado con éxito!! a la familia " + fam.getFamilyName();
+			log.info(mensaje);
+			new ResponseEntity<Families>(HttpStatus.CREATED);
+
+		} else {
+			mensaje = "Families no existe";
+			log.error(mensaje);
+			new ResponseEntity<Families>(HttpStatus.BAD_REQUEST);
+		}
+
+		return mensaje;
   }
 
   /**

@@ -31,90 +31,102 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RestController
-@Api(value = "Parents microservice", tags = "This API has a CRUD for parents")
+@Api(value = "/api/v1/doc", tags = "This API has a CRUD for parents")
 @RequestMapping("/api/v1/parents")
-
-@ApiOperation(value = "Is Alive operation", 
-    notes = "Return is the microservice is alive with a get operation returning the time")
+/**
+ * Mensaje de posibles errores en la Documentacion del swagger
+ * @author kvilcave
+ *
+ */
+@ApiOperation(value = "Is Alive operation", notes = "Return is the microservice is alive with a get operation returning the time")
 @ApiResponses({ @ApiResponse(code = HttpServletResponse.SC_OK, message = "OK"),
-    @ApiResponse(code = HttpServletResponse.SC_INTERNAL_SERVER_ERROR, 
-    message = "INTERNAL ERROR SERVER"),
-    @ApiResponse(code = HttpServletResponse.SC_UNAUTHORIZED, message = "UNAUTHORIZED"),
-    @ApiResponse(code = HttpServletResponse.SC_FORBIDDEN, message = "FORBIDDEN"),
-    @ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "ELEMENTO NOT FOUND") })
+		@ApiResponse(code = HttpServletResponse.SC_INTERNAL_SERVER_ERROR, message = "INTERNAL ERROR SERVER"),
+		@ApiResponse(code = HttpServletResponse.SC_UNAUTHORIZED, message = "UNAUTHORIZED"),
+		@ApiResponse(code = HttpServletResponse.SC_FORBIDDEN, message = "FORBIDDEN"),
+		@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "ELEMENTO NOT FOUND") })
 
 public class RestParentsController {
 
 	Logger log = LoggerFactory.getLogger(this.getClass());
-	
-  @Autowired
-  private IParentsService serv;
-  
-  /**
-   * List of the Familie.
-   * @return list Parents.
-   */
-  @ApiOperation(value = "Return list of parents")
-  @GetMapping
-  public ResponseEntity<List<Parents>> listar() {
 
-    return new ResponseEntity<List<Parents>>(serv.list(), HttpStatus.OK);
+	@Autowired
+	private IParentsService serv;
 
-  }
-  
-  /** 
-   * this function is responsible for making a record of a 
-   * Parents.
-   * @param per 
-   * @return object.
-   */
-  @ApiOperation(value = "Create new parent")
-  @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, 
-      consumes = MediaType.APPLICATION_JSON_VALUE)
-  public Parents insertar(@Valid @RequestBody Parents per) {
-	  Parents modelPar= new Parents();
-	 try {
-		 Parents perCreated = serv.create(per);
-		    new ResponseEntity<Parents>(perCreated, HttpStatus.CREATED);
-	} catch (Exception e) {
-		// TODO: handle exception
-		log.error("Parents no creado");
-		e.printStackTrace();
-		new ResponseEntity<Parents>(HttpStatus.BAD_REQUEST);
+	/**
+	 * Lista of the Familias.
+	 * 
+	 * @return list Parents.
+	 */
+	@ApiOperation(value = "Return list of parents")
+	@GetMapping
+	public ResponseEntity<List<Parents>> listar() {
+		log.info("listado de parientes");
+		return new ResponseEntity<List<Parents>>(serv.list(), HttpStatus.OK);
+
 	}
-   return modelPar;
-  }
-  
-  /**
-   * this function is responsible for updating an existing record.
-   * @param per
-   * @return modified object.
-   */
-  @ApiOperation(value = "Update parent")
-  @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public String modificar(@RequestBody Parents per) {
-    String mensaje = "";
-    Optional<Parents> obj = serv.listId(per.getParentId());
 
-    if (obj.isPresent()) {
-      serv.update(per);
-      mensaje = "Modificado con éxito!!";
-    } else {
-      mensaje = "Pariente no existe";
-    }
+	/**
+	 * this function is responsible for making a record of a Parents.
+	 * 
+	 * @param per
+	 * @return object.
+	 */
+	@ApiOperation(value = "Create new parent")
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void insertar(@Valid @RequestBody Parents per) {
 
-    return mensaje;
-  }
+		// Parents par = new Parents();
+		try {
+			Parents perCreated = serv.create(per);
+			log.info("Se creo con exito a "+ per.getFirstName()+" "+ per.getLastName());
+			new ResponseEntity<Parents>(perCreated, HttpStatus.CREATED);
+		} catch (Exception e) {
+			log.error("registro no creado");
+			new ResponseEntity<Parents>(HttpStatus.BAD_REQUEST);
 
-  /**
-   * this function is responsible for deleting an existing record.
-   * @param id
-   */
-  @ApiOperation(value = "Delete parent by id")
-  @DeleteMapping("/{id}")
-  public void eliminar(@PathVariable("id") Integer id) {
-    serv.delete(id);
+			e.printStackTrace();
+		}
 
-  }
+	}
+
+	/**
+	 * this function is responsible for updating an existing record.
+	 * 
+	 * @param per
+	 * @return modified object.
+	 */
+	@ApiOperation(value = "Update parent")
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public String modificar(@RequestBody Parents per) {
+		String mensaje = "";
+		Optional<Parents> obj = serv.listId(per.getParentId());
+
+		if (obj.isPresent()) {
+			serv.update(per);
+			mensaje = "Modificado con éxito!!";
+			log.info(mensaje + " " + per.getParentId());
+			new ResponseEntity<Parents>(HttpStatus.CREATED);
+
+		} else {
+			mensaje = "Pariente no existe";
+			log.error(mensaje);
+			new ResponseEntity<Parents>(HttpStatus.BAD_REQUEST);
+		}
+
+		return mensaje;
+	}
+
+	/**
+	 * this function is responsible for deleting an existing record.
+	 * 
+	 * @param id
+	 */
+	@ApiOperation(value = "Delete parent by id")
+	@DeleteMapping("/{id}")
+	public void eliminar(@PathVariable("id") Integer id) {
+		serv.delete(id);
+		new ResponseEntity<Parents>(HttpStatus.OK);
+
+	}
 
 }

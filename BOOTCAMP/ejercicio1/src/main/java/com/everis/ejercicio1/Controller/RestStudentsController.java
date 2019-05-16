@@ -1,5 +1,6 @@
 package com.everis.ejercicio1.Controller;
 
+import com.everis.ejercicio1.models.Parents;
 import com.everis.ejercicio1.models.Students;
 import com.everis.ejercicio1.service.IStudentsService;
 
@@ -21,69 +22,98 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
-@Api(value = "Students microservice", tags = "This API has a CRUD for students")
+@Api(value = "/api/v1/doc", tags = "This API has a CRUD for students")
 @RequestMapping("/api/v1/students")
 public class RestStudentsController {
 
-  @Autowired
-  private IStudentsService serv;
-  
-  /**
-   * List of the Students.
-   * @return list Students.
-   */
-  @ApiOperation(value = "Return list of family")
-  @GetMapping
-  public ResponseEntity<List<Students>> listar() {
+	Logger log = LoggerFactory.getLogger(this.getClass());
 
-    return new ResponseEntity<List<Students>>(serv.list(), HttpStatus.OK);
+	@Autowired
+	private IStudentsService serv;
 
-  }
+	/**
+	 * List of the Students.
+	 * 
+	 * @return list Students.
+	 */
+	@ApiOperation(value = "Return list of family")
+	@GetMapping
+	public ResponseEntity<List<Students>> listar() {
 
-  /**
-   * this function is responsible for making a record of a 
-   * family.
-   * @param stu
-   * @return object the Student.
-   */
-  @ApiOperation(value = "Create new students")
-  @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, 
-      consumes = MediaType.APPLICATION_JSON_VALUE)
-  public void insertar(@RequestBody Students stu) {
-    serv.create(stu);
-  }
+		log.info("lista ok");
+		return new ResponseEntity<List<Students>>(serv.list(), HttpStatus.OK);
 
-  /**
-   * this function is responsible for updating an existing record.
-   * @param stu stu.
-   * @return obj
-   */
-  @ApiOperation(value = "Update students")
-  @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public String modificar(@RequestBody Students stu) {
-    String mensaje = "";
-    Optional<Students> obj = serv.listId(stu.getStudentId());
+	}
 
-    if (obj.isPresent()) {
-      serv.update(stu);
-      mensaje = "Modificado con éxito!!";
-    } else {
-      mensaje = "Pariente no existe";
-    }
+	/**
+	 * this function is responsible for making a record of a family.
+	 * 
+	 * @param stu
+	 * @return object the Student.
+	 */
+	@ApiOperation(value = "Create new students")
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void insertar(@RequestBody Students stu) {
+		try {
+			serv.create(stu);
+			log.info("Se registro a"+ stu.getFirstName()+" "+ stu.getLastName());
+			new ResponseEntity<Parents>(HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("registro no creado");
+			new ResponseEntity<Parents>(HttpStatus.BAD_REQUEST);
 
-    return mensaje;
-  }
+		}
+	}
 
-  /**
-   * this function is responsible for deleting an existing record.
-   * @param id
-   */
-  @ApiOperation(value = "Delete students by id")
-  @DeleteMapping("/{id}")
-  public void eliminar(@PathVariable("id") Integer id) {
-    serv.delete(id);
+	/**
+	 * this function is responsible for updating an existing record.
+	 * 
+	 * @param stu stu.
+	 * @return obj
+	 */
+	@ApiOperation(value = "Update students")
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public String modificar(@RequestBody Students stu) {
+		String mensaje = "";
+		Optional<Students> obj = serv.listId(stu.getStudentId());
 
-  }
+		if (obj.isPresent()) {
+			serv.update(stu);
+			mensaje = "Modificado con éxito!! ";
+			new ResponseEntity<Parents>(HttpStatus.CREATED);
+
+			log.info(mensaje + stu.getStudentId());
+		} else {
+			mensaje = "Pariente no existe";
+			log.error(mensaje);
+			new ResponseEntity<Parents>(HttpStatus.BAD_REQUEST);
+
+		}
+
+		return mensaje;
+	}
+
+	/**
+	 * this function is responsible for deleting an existing record.
+	 * 
+	 * @param id
+	 */
+	@ApiOperation(value = "Delete students by id")
+	@DeleteMapping("/{id}")
+	public void eliminar(@PathVariable("id") Integer id) {
+		try {
+			serv.delete(id);
+			log.info("registro eliminado");
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("id no existe");
+			new ResponseEntity<Parents>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
 }

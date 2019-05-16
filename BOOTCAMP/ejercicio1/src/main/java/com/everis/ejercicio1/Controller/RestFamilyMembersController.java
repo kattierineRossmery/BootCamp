@@ -22,72 +22,105 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
-@Api(value = "Family members microservice", tags = "This API has a CRUD for family members")
+@Api(value = "/api/v1/doc", tags = "This API has a CRUD for family members")
 @RequestMapping("/api/v1/familyMembers")
 public class RestFamilyMembersController {
 
-  @Autowired
-  private IFamilyMembersService serv;
+	Logger log = LoggerFactory.getLogger(this.getClass());
 
-  /**
-   * List of the FamilyMembers.
-   * @return list of the FamilyMembers.
-   */
-  @ApiOperation(value = "Return list of family")
-  @GetMapping
-  public ResponseEntity<List<FamilyMembers>> listar() {
+	@Autowired
+	private IFamilyMembersService serv;
 
-    return new ResponseEntity<List<FamilyMembers>>(serv.list(), HttpStatus.OK);
+	/**
+	 * Lista de FamilyMembers.
+	 * 
+	 * @return lista de FamilyMembers.
+	 */
+	@ApiOperation(value = "Return list of family")
+	@GetMapping
+	public ResponseEntity<List<FamilyMembers>> listar() {
 
-  }
+		return new ResponseEntity<List<FamilyMembers>>(serv.list(), HttpStatus.OK);
 
-  /**
-   * this function is responsible for making a record of a FamilyMembers.
-   * @param famMembers
-   * @return object.
-   */
-  @ApiOperation(value = "Create new family")
-  @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, 
-      consumes = MediaType.APPLICATION_JSON_VALUE)
-  public void insertar(@RequestBody FamilyMembers famMembers) {
-    serv.create(famMembers);
-  }
-  
-  /**
-   * this function is responsible for updating an existing record.
-   * @param famMembers
-   * @return modified object.
-   */
-  @ApiOperation(value = "Update family")
-  @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public String modificar(@RequestBody FamilyMembers famMembers) {
-    String mensaje = "";
-    Optional<FamilyMembers> obj = serv.listId(famMembers.getFamilyMemberId());
+	}
 
-    if (obj.isPresent()) {
-      serv.update(famMembers);
-      mensaje = "Modificado con éxito!!";
-      new ResponseEntity<Families>(HttpStatus.CREATED); 
-    } else {
-      mensaje = "Pariente no existe";
-      new ResponseEntity<Families>(HttpStatus.BAD_REQUEST);
-    }
+	/**
+	 * Esta funcion es reposnsable de realizar un registro en
+	 * FamilyMembers.
+	 * @param famMembers
+	 * @return object.
+	 */
+	@ApiOperation(value = "Create new family")
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void insertar(@RequestBody FamilyMembers famMembers) {
+		// Parents par = new Parents();
+		try {
+			FamilyMembers perCreated = serv.create(famMembers);
+			log.info("creado con exito");
+			new ResponseEntity<FamilyMembers>(perCreated, HttpStatus.CREATED);
+		} catch (Exception e) {
+			log.error("registro no creado");
+			new ResponseEntity<FamilyMembers>(HttpStatus.BAD_REQUEST);
 
-    return mensaje;
-  }
+			e.printStackTrace();
+		}
 
-  /**
-   * this function is responsible for deleting an existing record.
-   * @param id
-   */
-  @ApiOperation(value = "Delete family members by id")
-  @DeleteMapping("/{id}")
-  public void eliminar(@PathVariable("id") Integer id) {
-	  
-    serv.delete(id);
-    new ResponseEntity<Families>(HttpStatus.BAD_REQUEST);
-  }
+	}
+	
+	/**
+	 * Esta funcion es reposnsable de realizar un registro en
+	 * FamilyMembers con parametros.
+	 * @param famMembers
+	 * @return object.
+	 */
+	@PostMapping("/api/1.0/familymembers/{familyId}/{parentOrStudentMember}/{id}")
+	  public void add(@RequestBody FamilyMembers familyMember,
+	      @PathVariable(value = "familyId") int familyId, 
+	      @PathVariable(value = "parentOrStudentMember") String parentOrStudentMember,
+	      @PathVariable(value = "id") int id) {
+	    serv.post(familyMember, familyId, parentOrStudentMember, id);
+	  }
+
+	/**
+     * Esta funcion es responsable de actualizar un registro. 
+	 * @param famMembers
+	 * @return modified object.
+	 */
+	@ApiOperation(value = "Update family")
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public String modificar(@RequestBody FamilyMembers famMembers) {
+		String mensaje = "";
+		Optional<FamilyMembers> obj = serv.listId(famMembers.getFamilyMemberId());
+
+		if (obj.isPresent()) {
+			serv.update(famMembers);
+			mensaje = "Modificado con éxito!!";
+			log.info(mensaje);
+			new ResponseEntity<Families>(HttpStatus.CREATED);
+		} else {
+			mensaje = "Pariente no existe";
+			log.error(mensaje);
+			new ResponseEntity<Families>(HttpStatus.BAD_REQUEST);
+		}
+
+		return mensaje;
+	}
+
+	/**
+	 * Esta funcion es responsable de eliminar un registro.
+	 * 
+	 * @param id
+	 */
+	@ApiOperation(value = "Delete family members by id")
+	@DeleteMapping("/{id}")
+	public void eliminar(@PathVariable("id") Integer id) {
+
+		serv.delete(id);
+		new ResponseEntity<Families>(HttpStatus.BAD_REQUEST);
+	}
 
 }
